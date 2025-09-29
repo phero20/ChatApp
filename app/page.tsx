@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
+import { SignUp, UserButton } from "@clerk/nextjs";
 
 export default function Home() {
   return (
     <div>
-      <p className="text-red-700">hello</p>
-      <Button>Button</Button>
+      <UserButton />
     </div>
   );
 }
