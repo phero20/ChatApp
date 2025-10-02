@@ -10,8 +10,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useNavigation } from "@/hooks/useNavigation";
-import { SignInButton, UserButton } from "@clerk/nextjs";
-import { Authenticated, Unauthenticated } from "convex/react";
+import { UserButton } from "@clerk/nextjs";
+import { Authenticated } from "convex/react";
 import Link from "next/link";
 
 const DesktopNav = () => {

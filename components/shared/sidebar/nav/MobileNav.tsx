@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/tooltip";
 import { useConversation } from "@/hooks/useConversation";
 import { useNavigation } from "@/hooks/useNavigation";
-import { SignInButton, UserButton } from "@clerk/nextjs";
-import { Authenticated, Unauthenticated } from "convex/react";
+import { UserButton } from "@clerk/nextjs";
+import { Authenticated } from "convex/react";
 import Link from "next/link";
 
 const MobileNav = () => {
@@ -66,9 +66,7 @@ const MobileNav = () => {
       </Card>
     </Authenticated>
     
-    {/* <Unauthenticated>
-      <p>sig plaessss</p>
-    </Unauthenticated> */}
+ 
 
     </>
   );

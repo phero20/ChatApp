@@ -215,7 +215,7 @@ export const leaveGroup = mutation({
   },
 });
 
-export const markRaed = mutation({
+export const markRead = mutation({
   args: {
     conversationId: v.id("conversations"),
     messageId: v.id("messages"),

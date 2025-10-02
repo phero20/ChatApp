@@ -17,9 +17,8 @@ import { SignInButton } from "@clerk/nextjs";
 import LoadingLogo from "@/components/shared/LoadingLogo";
 import { Button } from "@/components/ui/button";
 
-type Props = React.PropsWithChildren<{}>;
 
-const ConversationsLayout = ({ children }: Props) => {
+const ConversationsLayout = ({ children }: React.PropsWithChildren) => {
   const conversations = useQuery(api.conversations.get);
   const GoogleIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">

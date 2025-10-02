@@ -1,7 +1,6 @@
 "use client";
 import ConversationContainer from "@/components/shared/conversation/ConversationContainer";
 import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { Loader2 } from "lucide-react";
 import React, { useState } from "react";
@@ -13,16 +12,18 @@ import DeleteGroupDialog from "../_components/dialogs/DeleteGroupDialog";
 import LeaveGroupDialog from "../_components/dialogs/LeavegroupDialog";
 
 type Props = {
-  params: {
-    conversationId: Id<"conversations">;
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params: any
 };
+
+
+
 
 const ConversationPage = ({ params: { conversationId } }: Props) => {
   const [removeFriendDialogOpen, setRemoveFriendDialogOpen] = useState(false);
   const [deleteGroupDialogOpen, setDeleteGroupDialogOpen] = useState(false);
   const [leaveGroupDialogOpen, setLeaveGroupDialogOpen] = useState(false);
-  const [callType, setCallType] = useState<"audio" | "vedio" | null>();
+  // const [callType, setCallType] = useState<"audio" | "vedio" | null>();
 
   const conversation = useQuery(api.conversation.get, { id: conversationId });
   return conversation === undefined ? (

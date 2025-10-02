@@ -17,6 +17,7 @@ type Props = {
   members: {
     lastSeenMessageId?: Id<"messages">;
     username?: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
   }[];
 };
@@ -28,7 +29,7 @@ const Body = ({ members }: Props) => {
     id: conversationId as Id<"conversations">,
   });
 
-  const { mutate: markRead } = useMutationState(api.conversation.markRaed);
+  const { mutate: markRead } = useMutationState(api.conversation.markRead);
 
   const formatSeenBy = (names: string[]) => {
     switch (names.length) {
@@ -73,7 +74,7 @@ const Body = ({ members }: Props) => {
   const getSeenMessage = (messageId: Id<"messages">) => {
     const seenUsers = members
       .filter((member) => member.lastSeenMessageId === messageId)
-      .map((user) => user.username!.split(" ")[0]);
+      .map((user) => (user.username ?? "Someone").split(" ")[0]);
 
     if (seenUsers.length === 0) return undefined;
 
