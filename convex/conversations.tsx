@@ -1,3 +1,4 @@
+
 import { ConvexError } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { getUserByClerkId } from "./_utils";
@@ -10,7 +11,8 @@ export const get = query({
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) {
-      throw new Error("Unauthorized");
+      // throw new Error("Unauthorized");
+      return null;
     }
 
     const currentUser = await getUserByClerkId({
@@ -49,15 +51,40 @@ export const get = query({
           ctx,
           id: conversation.lastMessageId,
         });
+        const lastSeenMessage = conversationMemberships[index].lastSeenMessage
+          ? await ctx.db.get(conversationMemberships[index].lastSeenMessage!)
+          : null;
+
+        const lastSeenMessageTime = lastSeenMessage
+          ? lastSeenMessage._creationTime
+          : -1;
+
+        const unseenMessages = await ctx.db
+          .query("messages")
+          .withIndex("by_conversationId", (q) =>
+            q.eq("conversationId", conversation._id)
+          )
+          .filter((q) => q.gt(q.field("_creationTime"), lastSeenMessageTime))
+          .filter((q) => q.neq(q.field("senderId"), currentUser._id))
+          .collect();
 
         if (conversation.isGroup) {
-          return { conversation, lastMessage };
+          return {
+            conversation,
+            lastMessage,
+            unseenCount: unseenMessages.length,
+          };
         } else {
           const otherMembership = allConversationMembersships.filter(
             (membership) => membership.memberId !== currentUser._id
           )[0];
           const otherMember = await ctx.db.get(otherMembership.memberId);
-          return { conversation, otherMember, lastMessage };
+          return {
+            conversation,
+            otherMember,
+            lastMessage,
+            unseenCount: unseenMessages.length,
+          };
         }
       })
     );

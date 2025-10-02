@@ -11,49 +11,66 @@ import {
 } from "@/components/ui/tooltip";
 import { useConversation } from "@/hooks/useConversation";
 import { useNavigation } from "@/hooks/useNavigation";
-import { UserButton } from "@clerk/nextjs";
+import { SignInButton, UserButton } from "@clerk/nextjs";
+import { Authenticated, Unauthenticated } from "convex/react";
 import Link from "next/link";
 
 const MobileNav = () => {
   const paths = useNavigation();
 
-  const {isActive} = useConversation();
+  const { isActive } = useConversation();
 
   if (isActive) return null;
 
   return (
-    <Card className="fixed bottom-4 w-[calc(100vw-32px)] flex items-center h-16 p-2 lg:hidden">
-      <nav className="w-full h-full">
-        <ul className="flex h-full justify-evenly items-center">
-          {paths.map((path, id) => (
-            <li key={id} className="relative ">
-              <Link href={path.href}>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      size="icon"
-                      variant={path.active ? "default" : "outline"}
-                    >
-                      {path.icon}
-                    </Button>
-                    {path.count? <Badge variant="secondary" className="absolute left-5 bottom-5 px-2">{path.count}</Badge> :null}
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{path.name}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </Link>
+    <>
+    <Authenticated>
+      <Card className="fixed bottom-4 w-[calc(100vw-32px)] flex items-center h-16 p-2 lg:hidden">
+        <nav className="w-full h-full">
+          <ul className="flex h-full justify-evenly items-center">
+            {paths.map((path, id) => (
+              <li key={id} className="relative ">
+                <Link href={path.href}>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Button
+                        size="icon"
+                        variant={path.active ? "default" : "outline"}
+                      >
+                        {path.icon}
+                      </Button>
+                      {path.count ? (
+                        <Badge
+                          variant="secondary"
+                          className="absolute left-5 bottom-5 px-2"
+                        >
+                          {path.count}
+                        </Badge>
+                      ) : null}
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{path.name}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </Link>
+              </li>
+            ))}
+            <li>
+              <ThemeToggle />
             </li>
-          ))}
-          <li>
-            <ThemeToggle />
-          </li>
-          <li>
-            <UserButton />
-          </li>
-        </ul>
-      </nav>
-    </Card>
+            <li>
+              <UserButton />
+            </li>
+          </ul>
+        </nav>
+      </Card>
+    </Authenticated>
+    
+    {/* <Unauthenticated>
+      <p>sig plaessss</p>
+    </Unauthenticated> */}
+
+    </>
   );
 };
 

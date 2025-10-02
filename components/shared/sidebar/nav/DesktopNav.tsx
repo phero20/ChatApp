@@ -18,53 +18,53 @@ const DesktopNav = () => {
   const paths = useNavigation();
 
   return (
-    <Card
-      className="hidden lg:flex lg:flex-col lg:justify-between lg:items-center lg:h-full lg:w-16
+    <>
+      <Authenticated>
+        <Card
+          className="hidden lg:flex lg:flex-col lg:justify-between lg:items-center lg:h-full lg:w-16
   lg:px-2 lg:py-4
   "
-    >
-      <nav>
-        <ul className="flex flex-col items-center gap-4">
-          {paths.map((path, id) => (
-            <li key={id} className="relative ">
-              <Link href={path.href}>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      size="icon"
-                      variant={path.active ? "default" : "outline"}
-                    >
-                      {path.icon}
-                    </Button>
-                    {path.count ? (
-                      <Badge
-                        variant="secondary"
-                        className="absolute left-5 bottom-5 px-2"
-                      >
-                        {path.count}
-                      </Badge>
-                    ) : null}
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{path.name}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <div className="flex flex-col items-center gap-4">
-        <ThemeToggle />
-        <Unauthenticated>
-          <SignInButton />
-        </Unauthenticated>
+        >
+          <nav>
+            <ul className="flex flex-col items-center gap-4">
+              {paths.map((path, id) => (
+                <li key={id} className="relative ">
+                  <Link href={path.href}>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button
+                          size="icon"
+                          variant={path.active ? "default" : "outline"}
+                        >
+                          {path.icon}
+                        </Button>
+                        {path.count ? (
+                          <Badge
+                            variant="secondary"
+                            className="absolute left-5 bottom-5 px-2"
+                          >
+                            {path.count}
+                          </Badge>
+                        ) : null}
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{path.name}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className="flex flex-col items-center gap-4">
+            <ThemeToggle />
 
-        <Authenticated>
-          <UserButton />
-        </Authenticated>
-      </div>
-    </Card>
+            <UserButton />
+          </div>
+        </Card>
+      </Authenticated>
+      {/* <Unauthenticated>pla sign in</Unauthenticated> */}
+    </>
   );
 };
 
