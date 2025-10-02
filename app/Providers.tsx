@@ -6,12 +6,10 @@ import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
 
 import { Toaster } from "@/components/ui/sonner";
-import { ThemeProvider } from "@/components/ui/theme/Theme-provider";
+import { ThemeProvider } from "@/components/ui/theme/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ConvexClientProvider from "@/providers/ConvexCleintProvider";
 
-
- 
 function InnerProviders({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme();
 
@@ -20,8 +18,8 @@ function InnerProviders({ children }: { children: React.ReactNode }) {
       appearance={{
         baseTheme: resolvedTheme === "dark" ? dark : undefined,
         variables: {
-            colorPrimary: "hsl(var(--primary))"
-        }
+          colorPrimary: "hsl(var(--primary))",
+        },
       }}
     >
       <ConvexClientProvider>
@@ -31,8 +29,6 @@ function InnerProviders({ children }: { children: React.ReactNode }) {
     </ClerkProvider>
   );
 }
-
-
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
