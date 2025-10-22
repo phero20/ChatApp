@@ -38,7 +38,7 @@ const ConversationsLayout = ({ children }: React.PropsWithChildren) => {
               <img src="/logo.svg" alt="" className="animate-pulse w-20" />
               </div>
                 <h1 className="text-3xl font-bold tracking-tight mb-2 text-primary">
-                    Get Starteddddd
+                    Get Started
                 </h1>
                 <p className="text-muted-foreground mb-6">
                     Sign in with your Google account to access all features.
